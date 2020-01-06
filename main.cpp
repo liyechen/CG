@@ -1,34 +1,39 @@
 #include <GL/glut.h>
 
-#include <iostream>
-#include <cstdlib>
-#include <cstdio>
-#include <cmath>
+void initWindow() {
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 
-#define a(x, y) x + y
+    glutInitWindowPosition(200, 200);
+    glutInitWindowSize(400, 300);
+    glutCreateWindow("Computer Graphic Practise");
+
+    glClearColor(1.0, 1.0, 1.0, 0.0);
+    glMatrixMode(GL_PROJECTION);
+    gluOrtho2D(0.0, 200.0, 0.0, 150.0);
+}
 
 void displayCb() {
-    std::cout << "display cb" << std::endl;
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    glColor3f(0.0, 0.4, 0.2);
+
+    glBegin(GL_LINES);
+        glVertex2i(180, 15);
+        glVertex2i(10, 145);
+    glEnd();
+
+    glFlush();
 }
 
 int main(int argc, char* argv[]) {
 
+    glutInit(&argc, argv);
 
-    std::cout << 63 + ""<< std::endl;
+    initWindow();
 
-//    glutInit(&argc, argv);
-//
-//    glutCreateWindow("Computer Graphic Practise");
-//    glutInitWindowPosition(50, 100);
-//    glutInitWindowSize(300, 300);
-//    glutInitDisplayMode(GLUT_RGB);
-//
-//    glClearColor(1.0, 1.0, 1.0, 0.0);
-//    glClear(GL_COLOR_BUFFER_BIT);
-//
-//    glutDisplayFunc(displayCb);
-//
-//    glutMainLoop();
+    glutDisplayFunc(displayCb);
+
+    glutMainLoop();
 
     return 0;
 }
