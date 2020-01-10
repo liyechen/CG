@@ -1,39 +1,35 @@
-#include <GL/glut.h>
+#define GLFW_INCLUDE_VULKAN
 
-void initWindow() {
-    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+#include <GLFW/glfw3.h>
 
-    glutInitWindowPosition(200, 200);
-    glutInitWindowSize(400, 300);
-    glutCreateWindow("Computer Graphic Practise");
+#define GLM_FORCE_RADIANS
+#define GLM_FORCE_DEPTH_ZERO_TO_ONE
+#include <glm/vec4.hpp>
+#include <glm/mat4x4.hpp>
 
-    glClearColor(1.0, 1.0, 1.0, 0.0);
-    glMatrixMode(GL_PROJECTION);
-    gluOrtho2D(0.0, 200.0, 0.0, 150.0);
-}
+#include <iostream>
 
-void displayCb() {
-    glClear(GL_COLOR_BUFFER_BIT);
+int main() {
+    glfwInit();
 
-    glColor3f(0.0, 0.4, 0.2);
+    glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+    GLFWwindow* window = glfwCreateWindow(800, 600, "Vulkan window", nullptr, nullptr);
 
-    glBegin(GL_LINES);
-        glVertex2i(180, 15);
-        glVertex2i(10, 145);
-    glEnd();
+    uint32_t extensionCount = 0;
+    vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, nullptr);
 
-    glFlush();
-}
+    std::cout << extensionCount << " extensions supported" << std::endl;
 
-int main(int argc, char* argv[]) {
+    glm::mat4 matrix;
+    glm::vec4 vec;
+    auto test = matrix * vec;
 
-    glutInit(&argc, argv);
+    while(!glfwWindowShouldClose(window)) {
+        glfwPollEvents();
+    }
 
-    initWindow();
+    glfwDestroyWindow(window);
 
-    glutDisplayFunc(displayCb);
-
-    glutMainLoop();
-
+    glfwTerminate();
     return 0;
 }
